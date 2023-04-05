@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, Paper, TextField, Typography } from '@mui/material';
 import { useForm } from "react-hook-form";
-import { useGenerateHabit } from './hooks/useGenerateHabit';
+import { useGenerateHabit } from '../hooks/useGenerateHabit';
 
 
 export default function Home() {
