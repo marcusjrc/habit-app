@@ -1,115 +1,37 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import { Box, Button, Container, Divider, Paper, TextField, Typography } from '@mui/material';
+import { useForm } from "react-hook-form";
+import { useGenerateHabit } from './hooks/useGenerateHabit';
+
 
 export default function Home() {
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const generateHabit = useGenerateHabit();
+  
+  const onSubmit = data => generateHabit.mutate({habit: data.habit});
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    <Container>
+      <Box mt={5} textAlign="center">
+        <Paper>
+          <Box p={3}>
+        <Typography variant="h5">Enter a micro-behaviour you would like to turn into a habit</Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box display="flex" mt={5} justifyContent="center" alignItems="center">
+            <TextField error={!!errors.habit} helperText={errors.habit ? "Please enter a habit" : ''} variant="outlined" type="text" {...register("habit", { required: true})}/>
+            <Box ml={1} display="flex" justifyContent="center">          
+              <Button disabled={generateHabit.isLoading} type="submit" variant="contained" size="small">Generate Habit</Button>
+            </Box>
+          </Box>
+        </form>
+        </Box>
+        {generateHabit.data && <> <Divider></Divider><Box mt={5} pb={5} pr={3} pl={3}>
+          <Typography>Your generated habit is:</Typography>
+          <Typography variant="h6"><strong>{generateHabit.data.data}</strong></Typography>
+          </Box></>}
+        </Paper>
+      </Box>
+    </Container>
   )
 }
