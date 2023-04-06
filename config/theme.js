@@ -94,7 +94,7 @@ export const heatmapGradient = [
 
 export default createTheme({
   palette: {
-    type: "dark",
+    type: "light",
     primary: {
       main: eyYellow,
     },
@@ -103,10 +103,10 @@ export default createTheme({
     },
     background: {
       paper: containerBackground,
-      default: background,
+      default: white,
     },
     text: {
-      primary: white
+      primary: '#000'
     }
   },
   typography: {
@@ -118,165 +118,179 @@ export default createTheme({
       color: subtitleGrey,
     },
   },
-  overrides: {
+  components: {
     MuiCssBaseline: {
-      "@global": {
-        /* total width */
-        "*::-webkit-scrollbar": {
-          backgroundColor: `${white} !important`,
-          width: "16px",
-          height: "16px",
+      styleOverrides: {
+        "@global": {
+          /* total width */
+          "*::-webkit-scrollbar": {
+            backgroundColor: `${white} !important`,
+            width: "16px",
+            height: "16px",
+          },
+          /* background of the scrollbar except button or resizer */
+          "*::-webkit-scrollbar-track": {
+            backgroundColor: `${background} !important`,
+          },
+          "*::-webkit-scrollbar-track:hover": {
+            backgroundColor: `${containerBackground} !important`,
+          },
+          /* scrollbar itself */
+          "*::-webkit-scrollbar-thumb": {
+            backgroundColor: `${disabledText} !important`,
+            borderRadius: "16px !important",
+            border: `5px solid ${background} !important`,
+          },
+          "*::-webkit-scrollbar-thumb:hover": {
+            border: `4px solid ${containerBackground} !important`,
+          },
+          /* set button(top and bottom of the scrollbar) */
+          "*::-webkit-scrollbar-button": {
+            display: "none",
+          },
         },
-        /* background of the scrollbar except button or resizer */
-        "*::-webkit-scrollbar-track": {
-          backgroundColor: `${background} !important`,
-        },
-        "*::-webkit-scrollbar-track:hover": {
-          backgroundColor: `${containerBackground} !important`,
-        },
-        /* scrollbar itself */
-        "*::-webkit-scrollbar-thumb": {
-          backgroundColor: `${disabledText} !important`,
-          borderRadius: "16px !important",
-          border: `5px solid ${background} !important`,
-        },
-        "*::-webkit-scrollbar-thumb:hover": {
-          border: `4px solid ${containerBackground} !important`,
-        },
-        /* set button(top and bottom of the scrollbar) */
-        "*::-webkit-scrollbar-button": {
-          display: "none",
-        },
-      },
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 20
+        }
+      }
     },
     MuiContainer: {
-      root: {
-        padding: "16px",
-        paddingLeft: "16px !important",
-        paddingRight: "16px !important",
-        width: "100%",
-        margin: "0 auto",
-        maxWidth: "1312px !important",
-      },
+      styleOverrides: {
+        root: {
+          padding: "16px",
+          paddingLeft: "16px !important",
+          paddingRight: "16px !important",
+          width: "100%",
+          margin: "0 auto",
+          maxWidth: "1312px !important",
+        },
+      }
     },
     MuiChip: {
-      colorPrimary: { backgroundColor: successGreen },
-      label: {
-        fontSize: 14,
-        fontWeight: 300,
-        lineHeight: "22px",
-        letterSpacing: 0,
-        textAlign: "center",
-      },
+      styleOverrides: {
+        colorPrimary: { backgroundColor: successGreen },
+        label: {
+          fontSize: 14,
+          fontWeight: 300,
+          lineHeight: "22px",
+          letterSpacing: 0,
+          textAlign: "center",
+          color: 'white'
+        },
+      }
     },
     MuiButton: {
-      label: {
-        fontWeight: 700,
-        textTransform: "capitalize",
-      },
-      containedPrimary: {
-        "&:hover": {
-          backgroundColor: inputBorder,
-          borderColor: inputBorder,
-          color: background,
+      styleOverrides: {
+        label: {
+          fontWeight: 700,
+          textTransform: "capitalize",
         },
-      },
-      outlinedPrimary: {
-        color: white,
-        borderColor: eyYellow,
-      },
-      outlinedSecondary: {
-        color: white,
-        borderColor: inputBorder,
-        "&:hover": {
-          color: eyYellow,
+        containedPrimary: {
+          "&:hover": {
+            backgroundColor: inputBorder,
+            borderColor: inputBorder,
+            color: background,
+          },
+        },
+        outlinedPrimary: {
+          color: white,
           borderColor: eyYellow,
-          backgroundColor: background,
         },
-      },
-      root: {
-        "&.Mui-disabled": {
-          color: `${disabledText} !important`,
-          backgroundColor: `${inputDisabledBg} !important`,
-          borderColor: `${inputDisabledBg} !important`,
+        outlinedSecondary: {
+          color: white,
+          borderColor: inputBorder,
+          "&:hover": {
+            color: eyYellow,
+            borderColor: eyYellow,
+            backgroundColor: background,
+          },
         },
+        root: {
+          "&.Mui-disabled": {
+            color: `${disabledText} !important`,
+            backgroundColor: `${inputDisabledBg} !important`,
+            borderColor: `${inputDisabledBg} !important`,
+          },  
       },
+    }
     },
     MuiCard: {
-      root: {
-        backgroundColor: cardBackground,
-      },
+      styleOverrides: {
+        root: {
+          backgroundColor: white,
+        },
+      }
     },
     MuiFilledInput: {
-      root: {
-        borderColor: "#747480",
-      },
+      styleOverrides: {
+        root: {
+          borderColor: "#747480",
+        },
+      }
     },
     MuiInput: {
-      root: {
-        background: containerBackground,
-        marginTop: "0 !important",
-      },
+      styleOverrides: {
+        root: {
+          background: containerBackground,
+          marginTop: "0 !important",
+        },
+      }
     },
     MuiInputBase: {
-      root: {
-        "&:before, &:after": {
-          borderColor: `${inputBorder} !important`,
+      styleOverrides: {
+        root: {
+          "&:before, &:after": {
+            borderColor: `${inputBorder} !important`,
+          },
+          "&:before, &:hover:not(:disabled):not(.Mui-disabled):before": {
+            borderBottom: `1px solid ${inputBorder} !important`,
+          },
+          "& .MuiIconButton-root": {
+            padding: 0,
+          },
+          "& .MuiSvgIcon-root": {
+            width: "1em",
+            height: "1em",
+            fontSize: "1.5rem",
+          },
+          "& .MuiSvgIcon-root.MuiSelect-icon": {
+            position: "absolute",
+            top: "0.85714rem",
+            width: "1.71429rem",
+            height: "1.71429rem",
+          },
         },
-        "&:before, &:hover:not(:disabled):not(.Mui-disabled):before": {
-          borderBottom: `1px solid ${inputBorder} !important`,
+        input: {
+          border: 'none',
+          fontWeight: "lighter",
+          fontSize: 14,
+          minHeight: "3.14286rem !important",
+          padding: "1.2rem .7143rem 0.8rem",
+          lineHeight: "16px",
+          position: "relative",
+          textAlign: "left",
+          width: "100%",
+          boxSizing: "border-box !important",
+          "&.MuiSelect-select.MuiSelect-select": {
+            paddingRight: "0.7143rem",
+          },
         },
-        "&.Mui-focused, & .MuiSelect-select:focus, &:focus:not(:disabled):not(.Mui-disabled), &:hover:not(:disabled):not(.Mui-disabled)": {
-          backgroundColor: `${inputDisabledBg} !important`,
+        adornedEnd: {
+          paddingRight: "0.78571rem",
         },
-        "& .MuiIconButton-root": {
-          padding: 0,
-        },
-        "& .MuiSvgIcon-root": {
-          width: "1em",
-          height: "1em",
-          fontSize: "1.5rem",
-        },
-        "& .MuiSvgIcon-root.MuiSelect-icon": {
-          position: "absolute",
-          top: "0.85714rem",
-          width: "1.71429rem",
-          height: "1.71429rem",
-        },
-      },
-      input: {
-        border: 'none',
-        color: white,
-        fontWeight: "lighter",
-        fontSize: 14,
-        minHeight: "3.14286rem !important",
-        padding: "1.2rem .7143rem 0.8rem",
-        lineHeight: "16px",
-        position: "relative",
-        textAlign: "left",
-        width: "100%",
-        boxSizing: "border-box !important",
-        "&.MuiSelect-select.MuiSelect-select": {
-          paddingRight: "0.7143rem",
-        },
-      },
-      adornedEnd: {
-        paddingRight: "0.78571rem",
-      },
+      } 
     },
     MuiFilledInput: {
-      root: {
-        backgroundColor: containerBackground,
-        marginTop: "0 !important",
-      },
-    },
-    MuiSelect: {
-      root: {
-        fontWeight: "inherit",
-      },
-      selectMenu: {
-        height: "none",
-      },
+      styleOverrides: {
+        root: {
+          backgroundColor: containerBackground,
+          marginTop: "0 !important",
+        },
+      }
     },
     MuiInputLabel: {
       root: {
@@ -284,14 +298,10 @@ export default createTheme({
         left: 0,
         lineHeight: "1.57143rem",
         display: "block",
-        color: `${white}`,
         fontWeight: "lighter",
         fontSize: 14,
         zIndex: 999,
         pointerEvents: "none",
-        "&:focus, &.Mui-focused": {
-          color: white,
-        },
       },
       formControl: {
         transform: "translate(12px, 20px) scale(1)",
@@ -301,92 +311,84 @@ export default createTheme({
       },
     },
     MuiFormControl: {
-      root: {
-        "& :not(.MuiFormHelperText-root).Mui-disabled": {
-          color: disabledText,
-          backgroundColor: containerBackground,
-          cursor: "not-allowed",
-          "&:before": {
-            borderBottom: "none !important",
+      styleOverrides: {
+        root: {
+          "& :not(.MuiFormHelperText-root).Mui-disabled": {
+            color: disabledText,
+            backgroundColor: containerBackground,
+            cursor: "not-allowed",
+            "&:before": {
+              borderBottom: "none !important",
+            },
           },
         },
-      },
-    },
-    MuiMenuItem: {
-      root: {
-        fontSize: "14px",
-        padding: "0.85714rem 0.64286rem !important",
-        "&.Mui-selected, &.Mui-selected:hover": {
-          backgroundColor: cardBackground,
-          color: eyYellow,
-        },
-      },
-    },
-    MuiListItem: {
-      button: {
-        "&:hover": {
-          backgroundColor: cardBackground,
-          color: eyYellow,
-        },
-      },
+      }
     },
     MuiDivider: {
-      root: {
-        backgroundColor: divider,
-      },
+      styleOverrides: {
+        root: {
+          backgroundColor: divider,
+        },
+      }
     },
     MuiBadge: {
-      anchorOriginTopRightRectangle: {
-        right: "-35%",
-      },
-      badge: {
-        height: "15px",
-        minWidth: "15px",
-        padding: "0 3px",
-        fontSize: "11px",
-      },
+      styleOverrides: {
+        anchorOriginTopRightRectangle: {
+          right: "-35%",
+        },
+        badge: {
+          height: "15px",
+          minWidth: "15px",
+          padding: "0 3px",
+          fontSize: "11px",
+        },
+      }
     },
     MuiAlert: {
-      root: {
-        backgroundColor: `${cardBackground} !important`,
-        boxShadow: "0 0 16px 0 rgb(0 0 0 / 20%)",
-        alignItems: "center",
-      },
-      message: {
-        wordWrap: "break-word",
-        fontWeight: "lighter",
-        fontSize: "1rem",
-        lineHeight: "1.57143rem",
-      },
-      filledSuccess: {
-        "& .MuiAlert-icon": {
-          color: successGreen,
+      styleOverrides: {
+        root: {
+          backgroundColor: `${cardBackground} !important`,
+          boxShadow: "0 0 16px 0 rgb(0 0 0 / 20%)",
+          alignItems: "center",
         },
-      },
-      filledError: {
-        "& .MuiAlert-icon": {
-          color: errorRed,
+        message: {
+          wordWrap: "break-word",
+          fontWeight: "lighter",
+          fontSize: "1rem",
+          lineHeight: "1.57143rem",
         },
-      },
-      filledWarning: {
-        "& .MuiAlert-icon": {
-          color: warningAmber,
-        },
-      },
-    },
-    MuiSnackbar: {
-      root: {
-        maxWidth: "95%",
-        "& .MuiAlert-root": {
-          maxWidth: "100%",
-          "& .MuiAlert-message": {
-            maxWidth: "90%",
+        filledSuccess: {
+          "& .MuiAlert-icon": {
+            color: successGreen,
           },
         },
-      },
-      anchorOriginTopRight: {
-        top: "70px !important",
-      },
+        filledError: {
+          "& .MuiAlert-icon": {
+            color: errorRed,
+          },
+        },
+        filledWarning: {
+          "& .MuiAlert-icon": {
+            color: warningAmber,
+          },
+        },
+      }
+    },
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          maxWidth: "95%",
+          "& .MuiAlert-root": {
+            maxWidth: "100%",
+            "& .MuiAlert-message": {
+              maxWidth: "90%",
+            },
+          },
+        },
+        anchorOriginTopRight: {
+          top: "70px !important",
+        },
+      }
     },
   },
 });

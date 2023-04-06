@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     });
     const openai = new OpenAIApi(configuration);
     const response = await openai.createCompletion({
-        model: "text-davinci-002",
+        model: "text-davinci-003",
         prompt: `Generate a workplace habit to pair with this behaviour: ${req.body.habit}`,
         max_tokens: 50,
     });
